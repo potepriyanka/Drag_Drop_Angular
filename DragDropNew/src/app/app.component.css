@@ -1,0 +1,58 @@
+.main {
+  display: flex;
+  height: 100vh;
+  gap: 2px;
+
+}
+
+.drag {
+  border: 1px solid #000;
+  width: 200px;
+}
+
+.overview {
+  border: 1px solid #000;
+  width: 750px;
+  background: white;
+  background-image: radial-gradient(black 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: -19px -19px;
+}
+
+.rack {
+  width: 700px;
+  height: 100vh;
+  background-color: rgb(128 128 128 / 40%);
+}
+
+.shelf {
+  flex-direction: row;
+  width: 100%;
+  background-color: rgb(135 206 235 / 40%);
+}
+
+.card {
+  flex-direction: row;
+  width: auto;
+  background-color: rgb(0 255 255 / 40%);
+}
+
+.module {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(255 105 180 / 40%);
+}
+
+.component {
+  border: 1px solid #000;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.customPlaceHolder {
+  padding: 20px 10px;
+  background: lightgray;
+  border: solid 1px dashed;
+}

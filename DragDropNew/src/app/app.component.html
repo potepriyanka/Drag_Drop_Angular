@@ -1,0 +1,104 @@
+<div class="main">
+  <div
+    class="drag"
+    id="renderData"
+    cdkDropList
+    [cdkDropListData]="renderData"
+    [cdkDropListConnectedTo]="dataIds"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListEnterPredicate]="noReturnPredicate"
+  >
+    <div
+      class="component"
+      [cdkDragData]="sd"
+      cdkDrag
+      *ngFor="let sd of renderData"
+    >
+      {{ sd.name }}
+    </div>
+  </div>
+
+  <div
+    class="overview"
+    id="sourceData"
+  >
+    <ng-container *ngFor="let cd of sourceData">
+      <ng-container
+        [ngTemplateOutlet]="createDevices"
+        [ngTemplateOutletContext]="{ cd: cd }"
+      >
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="drag C">
+    Device Info
+    <form [formGroup]="checkoutForm">
+      <div class="ml-1">
+        <label for="id"> ID : </label>
+        <input id="id" type="number" formControlName="id" [value]="device.id" />
+      </div>
+
+      <div class="ml-1">
+        <label for="name"> Name : </label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          [value]="device.name"
+        />
+      </div>
+
+      <div class="ml-1">
+        <label for="type"> Type : </label>
+        <input
+          id="type"
+          type="text"
+          formControlName="type"
+          [value]="device.type"
+        />
+      </div>
+
+      <div class="ml-1">
+        <label for="boundary"> Boundary : </label>
+        <input
+          id="boundary"
+          type="boundary"
+          formControlName="boundary"
+          [value]="device.boundary"
+        />
+      </div>
+
+      <div class="mt-2">
+        <button class="button mx-4" (click)="onSubmit()">Save</button>
+        <button class="button" (click)="deleteDevice()">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #createDevices let-cd="cd">
+  <div
+    id="{{ cd.id }}"
+    class="component {{ cd.type }}"
+    cdkDrag
+    cdkDragBoundary="{{ cd.boundary }}"
+    [cdkDragData]="cd"
+    (click)="showDetails($event, cd)"
+
+    cdkDropList
+    [cdkDropListData]="cd.children"
+    cdkDropListConnectedTo="renderData"
+    (cdkDropListDropped)="drop($event)"
+    (cdkDropListEntered)="onCdkDragEntered($event)"
+  >
+    {{ cd.name }}
+    <ng-container *ngFor="let cr of cd.children">
+      <ng-container
+        [ngTemplateOutlet]="createDevices"
+        [ngTemplateOutletContext]="{ cd: cr }"
+      >
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-template>
